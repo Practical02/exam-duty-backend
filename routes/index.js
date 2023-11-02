@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('./auth');
-const duty = require('./duty')
+const duty = require('./duty');
+const cors = require('cors');
 const createError = require('http-errors')
+
+express.use(cors())
+
+
 router.get('/', (req, res) => {
     res.send('Server Alive');
 });
@@ -15,5 +20,7 @@ router.use( (err, req, res, next) => {
         message: err.message
     })
 })
+
+
 
 module.exports = router;

@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production npm run prisma:migrate && npm run prisma:generate && node index.js",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:generate": "prisma generate"
-  },   
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
