@@ -5,7 +5,7 @@ const duty = require('./duty');
 const cors = require('cors');
 const createError = require('http-errors')
 
-express.use(cors())
+router.use(cors());
 
 
 router.get('/', (req, res) => {
