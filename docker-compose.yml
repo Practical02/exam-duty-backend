@@ -1,14 +1,45 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres:10.3
+    image: postgres:15.0
     restart: always
     environment:
       POSTGRES_USER: exam_duty
       POSTGRES_PASSWORD: examcce125
+      POSTGRES_DB: exam_duty  # Set the default database
     volumes:
       - postgres:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount the SQL script
+    networks:
+      - exam_duty_network
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://exam_duty:examcce125@postgres:5432/exam_duty
     ports:
-      - '5432:5432'
+      - '5000:5000'
+    depends_on:
+      - postgres
+    networks:
+      - exam_duty_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - '5050:80'
+    networks:
+      - exam_duty_network
+networks:
+  exam_duty_network:
+    driver: bridge
+
 volumes:
   postgres:
