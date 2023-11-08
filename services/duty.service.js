@@ -29,7 +29,7 @@ class DutyService {
           },
         },
       });
-      const ISTOffset = 5 * 60 * 60 * 1000; // 5 hours in milliseconds
+      const ISTOffset = 6 * 60 * 60 * 1000; // 5 hours in milliseconds
       const dutiesWithOffset = duties.map((duty) => ({
         ...duty,
         date: new Date(duty.date.getTime() + ISTOffset),
