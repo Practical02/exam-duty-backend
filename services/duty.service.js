@@ -1,6 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const currentDate = new Date();
+
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("../utils/jwt");
@@ -21,6 +23,9 @@ class DutyService {
     if (id) {
       const duties = await prisma.duty.findMany({
         where: { userId: id },
+        date: {
+          gte: currentDate,
+        },
       });
       console.log(duties);
       return duties;
