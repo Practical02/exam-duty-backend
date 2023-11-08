@@ -8,28 +8,7 @@ const multer = require("multer");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const { PrismaClient } = require('@prisma/client');
 
-const prisma = new PrismaClient();
-
-async function setDatabaseTimeZone() {
-  try {
-    await prisma.$queryRaw('SET TIME ZONE "Asia/Kolkata";');
-  } catch (error) {
-    console.error("Error setting database time zone:", error);
-  }
-}
-
-setDatabaseTimeZone()
-  .then(() => {
-    console.log("Database time zone set to IST (Indian Standard Time).");
-  })
-  .catch((error) => {
-    console.error("Error setting database time zone:", error);
-  })
-  .finally(() => {
-    prisma.$disconnect();
-  });
 
 app.use("/", route);
 
