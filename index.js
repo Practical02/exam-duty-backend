@@ -8,6 +8,10 @@ const multer = require("multer");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
+
 async function setDatabaseTimeZone() {
   try {
     await prisma.$queryRaw('SET TIME ZONE "Asia/Kolkata";');
