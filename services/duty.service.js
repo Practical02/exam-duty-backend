@@ -18,18 +18,19 @@ class DutyService {
   static async duties(data) {
     const { email } = data;
     const user = await prisma.user.findFirst({ where: { email: email } });
-    const {id} = user;
+    const { id } = user;
 
     if (id) {
       const duties = await prisma.duty.findMany({
-        where: { userId: id },
-        date: {
-          gte: currentDate,
+        where: {
+          userId: id,
+          date: {
+            gte: currentDate,
+          },
         },
       });
       console.log(duties);
       return duties;
-      
     } else {
       throw new Error("No email provided in the data object.");
     }
