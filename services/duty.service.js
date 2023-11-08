@@ -29,8 +29,14 @@ class DutyService {
           },
         },
       });
-      console.log(duties);
-      return duties;
+      const ISTOffset = 5 * 60 * 60 * 1000; // 5 hours in milliseconds
+      const dutiesWithOffset = duties.map((duty) => ({
+        ...duty,
+        date: new Date(duty.date.getTime() + ISTOffset),
+      }));
+
+      console.log(dutiesWithOffset);
+      return dutiesWithOffset;
     } else {
       throw new Error("No email provided in the data object.");
     }
